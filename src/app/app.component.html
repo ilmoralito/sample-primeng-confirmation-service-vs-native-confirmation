@@ -8,11 +8,23 @@
 <div>
   <button
     pButton
+    label="Toggle condition to {{ condition === true ? 'Off' : 'On' }}"
+    (click)="toggleCondition()"
+  ></button>
+</div>
+
+<div>
+  <button
+    pButton
     label="Confirm with primeng confirmation service"
     (click)="confirm()"
   ></button>
 </div>
 
 <div>
-  <button pButton label="Confirm with native confirmation" (click)="confirm1()"></button>
+  <button
+    pButton
+    label="Confirm with native confirmation"
+    (click)="confirm1()"
+  ></button>
 </div>

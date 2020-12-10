@@ -9,41 +9,53 @@ import { MessageService } from 'primeng/api';
   providers: [ConfirmationService, MessageService]
 })
 export class AppComponent {
-  title = 'test';
+  condition = false;
 
   constructor(
     private confirmationService: ConfirmationService,
     private messageService: MessageService
   ) {}
 
+  toggleCondition(): void {
+    this.condition = !this.condition;
+  }
+
   confirm(): void {
-    this.confirmationService.confirm({
-      message: 'Are you sure that you want to proceed?',
-      header: 'Confirmation',
-      icon: 'pi pi-exclamation-triangle',
-      accept: () => {
-        this.openFile();
-        this.messageService.add({
-          severity: 'info',
-          summary: 'Confirmed',
-          detail: 'You have accepted'
-        });
-      },
-      reject: () => {
-        return;
-      }
-    });
+    if (this.condition) {
+      this.confirmationService.confirm({
+        message: 'Are you sure that you want to proceed?',
+        header: 'Confirmation',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.openFile();
+          this.messageService.add({
+            severity: 'info',
+            summary: 'Confirmed',
+            detail: 'You have accepted'
+          });
+
+          return;
+        },
+        reject: () => {
+          return;
+        }
+      });
+    }
 
     this.openFile();
   }
 
   confirm1(): void {
-    const result = confirm('Are you sure that you want to proceed?');
+    if (this.condition) {
+      const result = confirm('Are you sure that you want to proceed?');
 
-    if (result) {
-      this.openFile();
-    } else {
-      return;
+      if (result) {
+        this.openFile();
+
+        return;
+      } else {
+        return;
+      }
     }
 
     this.openFile();
